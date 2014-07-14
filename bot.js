@@ -10,7 +10,7 @@
  */
 
 var config = {
-    name: 'Blak Bot',
+    name: 'Lore Server',
     userid: function () {
         return toId(this.name);
     },
