@@ -355,7 +355,9 @@ function canTalk(user, room, connection, message) {
 
 
 if (message.toLowerCase().indexOf("hi") ) {
+        
         room.add('|c|@Lore Server| hey wassup');
+        return true;
         }
 
 
