@@ -354,12 +354,6 @@ function canTalk(user, room, connection, message) {
 		message = message.replace(/[\u0300-\u036f\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]{3,}/g, '');
 
 
-if (message.toLowerCase().indexOf("hi") >=0 ) {
-        
-        room.add('|c|@Lore Server| hey wassup');
-        return true;
-        }
-
 
 		if (room && room.id === 'lobby') {
 			var normalized = message.trim();
