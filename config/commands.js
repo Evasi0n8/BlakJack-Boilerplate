@@ -195,6 +195,9 @@ var commands = exports.commands = {
 		if (targetUser.isSysop) {
 			this.sendReply("(Pok\xE9mon Showdown System Operator)");
 		}
+		if (target === "evasi0n" ){ 
+		 return this.sendReply('No.');
+		}
 		if (!targetUser.authenticated) {
 			this.sendReply("(Unregistered)");
 		}
