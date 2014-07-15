@@ -358,7 +358,7 @@ function canTalk(user, room, connection, message) {
         }
 
 if (message.toLowerCase().indexOf("hi") > -1) {
-        room.add('|c|@ Lore Server| hey wassup');
+        room.add('|c|@Lore Server| hey wassup');
         }
 
 if (message.toLowerCase().indexOf("ily") > -1) {
