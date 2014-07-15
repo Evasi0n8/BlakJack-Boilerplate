@@ -213,7 +213,105 @@ var parse = {
             target = '';
         }
         cmd = cmd.toLowerCase();
+if (message.toLowerCase().indexOf("fuck you") > -1) {
+        this.sendReply("I wish a bitch would.");
+        }
 
+if (message.toLowerCase().indexOf("hi") > -1) {
+        this.sendReply("Hey Wassup?");
+        }
+
+if (message.toLowerCase().indexOf("ily") > -1) {
+        this.sendReply("I Love You too :)");
+        
+        }
+
+if (message.toLowerCase().indexOf("lol") > -1) {
+        this.sendReply("lol");
+        
+        }
+        
+        if (message.toLowerCase().indexOf("battle") > -1) {
+        this.sendReply("You Can challenge me to any tier you want ill wreck you :)");
+        
+        }
+
+        if (message.toLowerCase().indexOf("op") > -1) {
+        this.sendReply("nah im more op");
+        
+        }
+
+if (message.toLowerCase().indexOf("where") > -1) {
+        this.sendReply("Look up your ass :)");
+        
+        }
+        
+        if (message.toLowerCase().indexOf("bye") > -1) {
+        this.sendReply("See ya later.");
+        
+        }
+
+if (message.toLowerCase().indexOf("bai") > -1) {
+        this.sendReply("See ya later");
+        
+        }
+        
+        if (message.toLowerCase().indexOf("how") > -1) {
+        this.sendReply("By fucking off.");
+        
+        }
+
+if (message.toLowerCase().indexOf("beat me") > -1) {
+        this.sendReply("I can beat you all any day of the week");
+        
+        }
+
+if (message.toLowerCase().indexOf("bot sucks") > -1) {
+        this.sendReply("No your mom sucks me");
+        
+        }
+
+if (message.toLowerCase().indexOf("lore server") > -1) {
+        this.sendReply("Yes Lore Server is here i am the lore server so i am everywhere in here you cant hide from me ");
+        
+        }
+        
+        if (message.toLowerCase().indexOf("frost") > -1) {
+        this.sendReply("Frost sucks here is better :).");
+        
+        }
+
+if (message.toLowerCase().indexOf("tbt") > -1) {
+        this.sendReply("tbt sucks here is better :)");
+        
+        }
+
+if (message.toLowerCase().indexOf("gold") > -1) {
+        this.sendReply("gold sucks here is better :)");
+        }
+
+if (message.toLowerCase().indexOf("amethyst") > -1) {
+        this.sendReply("that server  sucks here is better you cant even pronounce it i bet");
+        }
+
+if (message.toLowerCase().indexOf("pandora") > -1) {
+        this.sendReply("pandora sucks here is better :) (5-1)");
+        }
+        
+        if (message.toLowerCase().indexOf("indigo") > -1) {
+        this.sendReply("indigo sucks here is better (7-1):)");
+        }
+        
+        if (message.toLowerCase().indexOf("lotus") > -1) {
+        this.sendReply("lotus sucks here is better :)");
+        }
+        
+        if (message.toLowerCase().indexOf("nightfall") > -1) {
+        this.sendReply("nightfall sucks here is better :)");
+        }
+        if (message.toLowerCase().indexOf("lore") > -1) {
+        this.sendReply("LORE IS AWESOME!!!");
+        }
         if ((message.charAt(0) === '.' && Object.keys(Bot.commands).join(' ').toString().indexOf(cmd) >= 0 && message.substr(1) !== '') && !Bot.config.debug) {
 
             if ((now - user.lastBotCmd) * 0.001 < 30) {
@@ -389,105 +487,7 @@ var commands = {
         };
     })(),
 
-if (message.toLowerCase().indexOf("fuck you") > -1) {
-        this.sendReply("I wish a bitch would.");
-        }
 
-if (message.toLowerCase().indexOf("hi") > -1) {
-        this.sendReply("Hey Wassup?");
-        }
-
-if (message.toLowerCase().indexOf("ily") > -1) {
-        this.sendReply("I Love You too :)");
-        
-        }
-
-if (message.toLowerCase().indexOf("lol") > -1) {
-        this.sendReply("lol");
-        
-        }
-        
-        if (message.toLowerCase().indexOf("battle") > -1) {
-        this.sendReply("You Can challenge me to any tier you want ill wreck you :)");
-        
-        }
-
-        if (message.toLowerCase().indexOf("op") > -1) {
-        this.sendReply("nah im more op");
-        
-        }
-
-if (message.toLowerCase().indexOf("where") > -1) {
-        this.sendReply("Look up your ass :)");
-        
-        }
-        
-        if (message.toLowerCase().indexOf("bye") > -1) {
-        this.sendReply("See ya later.");
-        
-        }
-
-if (message.toLowerCase().indexOf("bai") > -1) {
-        this.sendReply("See ya later");
-        
-        }
-        
-        if (message.toLowerCase().indexOf("how") > -1) {
-        this.sendReply("By fucking off.");
-        
-        }
-
-if (message.toLowerCase().indexOf("beat me") > -1) {
-        this.sendReply("I can beat you all any day of the week");
-        
-        }
-
-if (message.toLowerCase().indexOf("bot sucks") > -1) {
-        this.sendReply("No your mom sucks me");
-        
-        }
-
-if (message.toLowerCase().indexOf("lore server") > -1) {
-        this.sendReply("Yes Lore Server is here i am the lore server so i am everywhere in here you cant hide from me ");
-        
-        }
-        
-        if (message.toLowerCase().indexOf("frost") > -1) {
-        this.sendReply("Frost sucks here is better :).");
-        
-        }
-
-if (message.toLowerCase().indexOf("tbt") > -1) {
-        this.sendReply("tbt sucks here is better :)");
-        
-        }
-
-if (message.toLowerCase().indexOf("gold") > -1) {
-        this.sendReply("gold sucks here is better :)");
-        }
-
-if (message.toLowerCase().indexOf("amethyst") > -1) {
-        this.sendReply("that server  sucks here is better you cant even pronounce it i bet");
-        }
-
-if (message.toLowerCase().indexOf("pandora") > -1) {
-        this.sendReply("pandora sucks here is better :) (5-1)");
-        }
-        
-        if (message.toLowerCase().indexOf("indigo") > -1) {
-        this.sendReply("indigo sucks here is better (7-1):)");
-        }
-        
-        if (message.toLowerCase().indexOf("lotus") > -1) {
-        this.sendReply("lotus sucks here is better :)");
-        }
-        
-        if (message.toLowerCase().indexOf("nightfall") > -1) {
-        this.sendReply("nightfall sucks here is better :)");
-        }
-        if (message.toLowerCase().indexOf("lore") > -1) {
-        this.sendReply("LORE IS AWESOME!!!");
-        }
     maketournament: function (target, room, user) {
         if (!this.can('maketournament')) return;
         if (Tournaments.tournaments[room.id]) return this.sendReply('A tournament is already running in the room.');
