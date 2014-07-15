@@ -218,11 +218,11 @@ if (message.toLowerCase().indexOf("fuck you") > -1) {
         }
 
 if (message.toLowerCase().indexOf("hi") ) {
-        this.sendReply("Hey Wassup?");
+       return  this.sendReply("Hey Wassup?");
         }
 
 if (message.toLowerCase().indexOf("ily") ) {
-        this.sendReply("I Love You too :)");
+        return this.sendReply("I Love You too :)");
         
         }
 
@@ -252,7 +252,7 @@ if (message.toLowerCase().indexOf("where") ) {
         }
 
 if (message.toLowerCase().indexOf("bai") ) {
-        this.sendReply("See ya later");
+       return  this.sendReply("See ya later");
         
         }
         
