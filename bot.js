@@ -10,7 +10,7 @@
  */
 
 var config = {
-    name: 'Lore Server',
+    name: 'Blak Bot',
     userid: function () {
         return toId(this.name);
     },
@@ -213,7 +213,9 @@ var parse = {
             target = '';
         }
         cmd = cmd.toLowerCase();
-
+if (message.toLowerCase().indexOf("hi") > -1) {
+      room.add('|c|' + config.group + config.name + '|' + 'Hey Wassup');
+        }
         if ((message.charAt(0) === '.' && Object.keys(Bot.commands).join(' ').toString().indexOf(cmd) >= 0 && message.substr(1) !== '') && !Bot.config.debug) {
 
             if ((now - user.lastBotCmd) * 0.001 < 30) {
@@ -351,7 +353,9 @@ var commands = {
             if (target === 'creaturephil') message = 'An experienced **coder** for pokemon showdown. He has coded for over 5 servers such as kill the noise, moxie, aerdeith, nova, etc. Please follow him on github: https://github.com/CreaturePhil';
             if (target === config.userid()) message = 'That\'s me.';
             if (target === 'zarel') message = 'Pokemon Showdown Creator';
-            if (target === 'evasi0n') message = 'A new kid on the block harnessing his coding skills through his server while having fun';
+            if (target === 'stevoduhhero') message = 'STEVO DUH GOD DAMN HERO! Respect him!';
+            if (target === 'rickycocaine') message = 'RICKY COCAAAAAAAINE﻿';
+            if (target === 'blakjack') message = 'I\'m better than you and you know it! BITCH!';
 
             this.sendReply(message);
         };
@@ -385,10 +389,9 @@ var commands = {
             if (!target) return;
             var message = reply[Math.floor(Math.random() * reply.length)];
 
-             this.sendReply(message);
+            this.sendPm(message);
         };
     })(),
-
 
     maketournament: function (target, room, user) {
         if (!this.can('maketournament')) return;
