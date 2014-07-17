@@ -29,7 +29,7 @@ background: url("http://i.imgur.com/Q8vHT0Y.png");
 	background: url("http://i.imgur.com/Q8vHT0Y.png");
 }
 .ps-room.ps-room-light{
-opacity:0.9;
+  opacity:0.9;
 }
 
 
@@ -815,24 +815,24 @@ padding-bottom:12px;
 .spoiler:hover,
 .spoiler:active,
 .spoiler-shown {
-	color: #000000;
-	background: url(http://i.imgur.com/MQK26vP.png);
+	color: white;
+	background: url(http://1.bp.blogspot.com/-0r5D7HA_XJQ/Tx3a_PirRwI/AAAAAAAADio/6oQPgFlE3IY/s640/forever-lights-love-nebula-purple-space-Favim_com-77405.jpg);
 	border: 0px solid #AAAAAA;
 	padding: 1px 4px;
 }
 
     .teambar button {
 
-background: url(http://i.imgur.com/MQK26vP.png);
-color:#A9E2F3;
+background: url(http://1.bp.blogspot.com/-0r5D7HA_XJQ/Tx3a_PirRwI/AAAAAAAADio/6oQPgFlE3IY/s640/forever-lights-love-nebula-purple-space-Favim_com-77405.jpg);
+color:white;
 }
  .setmenu button {
-background: url(http://i.imgur.com/MQK26vP.png);
-  color:#CEF6F5;
+background: url(http://1.bp.blogspot.com/-0r5D7HA_XJQ/Tx3a_PirRwI/AAAAAAAADio/6oQPgFlE3IY/s640/forever-lights-love-nebula-purple-space-Favim_com-77405.jpg);
+  color:white;
   }
 .setmenu button:hover {
-background: url(http://i.imgur.com/UoUnGNL.png);
-color:black;
+background: url(http://1.bp.blogspot.com/-0r5D7HA_XJQ/Tx3a_PirRwI/AAAAAAAADio/6oQPgFlE3IY/s640/forever-lights-love-nebula-purple-space-Favim_com-77405.jpg);
+color:white;
 }
   .roomlist a.ilink:hover{
       
@@ -1174,3 +1174,26 @@ top:115px;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 10pt;
 }
+
+.setchart {
+	border: 2px solid black;
+	background: url("http://tumblrchase.com/img/bg/84.gif") ;
+
+}
+
+.setchart-nickname {
+  background: url("http://1.bp.blogspot.com/-0r5D7HA_XJQ/Tx3a_PirRwI/AAAAAAAADio/6oQPgFlE3IY/s640/forever-lights-love-nebula-purple-space-Favim_com-77405.jpg")
+  }
+.setchart label,
+.setchart-nickname label {
+    color:white;
+  
+  }
+  
+  .setdetails, .setstats {
+      background: url("http://images.nationalgeographic.com/wpf/media-live/photos/000/442/overrides/space171-jabbah-star-system_44215_600x450.jpg");
+   color:white;
+    border: 1px solid black;
+}
+    
+    
