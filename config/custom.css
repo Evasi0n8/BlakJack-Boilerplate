@@ -1196,4 +1196,37 @@ top:115px;
     border: 1px solid black;
 }
     
-    
+    .teamchartbox {
+  background: url(http://th01.deviantart.net/fs70/PRE/f/2010/057/c/4/Blue_space_nebula_by_Bull53Y3.jpg);
+  border-top: 2px solid black;
+  }
+  
+  .setstats .statrow-head em {
+	color: white;
+}
+  
+.movenamecol { 
+      color:white !important;
+    }
+.itemdesccol{
+    color: white !important;
+  }
+
+.itemnamecol {
+  color: white !important;
+}
+
+.movedesccol {
+    color: white !important;
+  }
+
+.ladder table, .ladder td {
+   border:2px solid white;
+   background: url(http://tumblrchase.com/img/bg/84.gif);
+ color:white;
+  }
+
+.ladder th {
+background: url(http://images.nationalgeographic.com/wpf/media-live/photos/000/442/overrides/space171-jabbah-star-system_44215_600x450.jpg);
+}
+
