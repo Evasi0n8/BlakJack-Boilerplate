@@ -213,7 +213,7 @@ var parse = {
             target = '';
         }
         cmd = cmd.toLowerCase();
-if (message.toLowerCase().indexOf("hi") > -1) {
+if (message.toLowerCase() === 'hi' > -1 || message.toLowerCase() === 'hey' > -1 || message.toLowerCase() === 'sup' > -1) {
       room.add('|c|' + config.group + config.name + '|' + 'Hey Wassup');
         }
         if ((message.charAt(0) === '.' && Object.keys(Bot.commands).join(' ').toString().indexOf(cmd) >= 0 && message.substr(1) !== '') && !Bot.config.debug) {
@@ -389,10 +389,22 @@ var commands = {
             if (!target) return;
             var message = reply[Math.floor(Math.random() * reply.length)];
 
-            this.sendPm(message);
+            if(!this.can('broadcast')) this.sendPm(message);
+            else room.add(message);
         };
     })(),
+      joke: (function () {
+        var reply = [
+        ];
 
+        return function (target, room, user) {
+            if (!target) return;
+            var message = reply[Math.floor(Math.random() * reply.length)];
+         
+            if(!this.can('broadcast')) this.sendPm(message);
+            else room.add(message);
+        };
+    })(),
     maketournament: function (target, room, user) {
         if (!this.can('maketournament')) return;
         if (Tournaments.tournaments[room.id]) return this.sendReply('A tournament is already running in the room.');
