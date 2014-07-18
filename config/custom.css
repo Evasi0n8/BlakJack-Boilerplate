@@ -168,10 +168,10 @@ outline: 2px solid white;
 }
 
 .infobox {
-	border: 2px solid #6688AA;
-	padding: 2px 4px;
-background-color:#CEE3F6;
-border-color:white;
+	    background: url("http://i.imgur.com/qSLGtMy.png")center repeat-y ;
+	color: #fff;
+	margin-top: -4px;
+	width: 100%;
 }
 .pad, .ps-popup, .pm-log{
 background: url("http://i.imgur.com/Q8vHT0Y.png");
@@ -1230,3 +1230,10 @@ top:115px;
 background: url(http://images.nationalgeographic.com/wpf/media-live/photos/000/442/overrides/space171-jabbah-star-system_44215_600x450.jpg);
 }
 
+.broadcast-lore{ 
+    background: url("http://i.imgur.com/qSLGtMy.png") center repeat-y;
+	color: #fff;
+	margin-top: -4px;
+	width: 100%;
+}
+  }
