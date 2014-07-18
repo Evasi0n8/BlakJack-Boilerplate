@@ -198,6 +198,12 @@ var core = exports.core = {
         },
 
     },
+    
+    trivia: {
+    startDisplay: function(question) {
+     return '<div class="trivia-border"><font size="10" color="red"><center>Trivia</center><br /><font size="4" color="red">Question: ' + question + '</font></div>';
+    }    
+    };
 
     calculateElo: function (winner, loser) {
         if (winner === 0) winner = 1000;
