@@ -1236,4 +1236,6 @@ background: url(http://images.nationalgeographic.com/wpf/media-live/photos/000/4
 	margin-top: -4px;
 	width: 100%;
 }
+  .trivia-border {
+  	border: 2px dashed;
   }
