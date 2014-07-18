@@ -2024,6 +2024,10 @@ var components = exports.components = {
             CommandParser.uncacheTree(path.join(__dirname, './', './core.js'));
             SysopAccess = require(path.join(__dirname, './', './core.js'));
 
+            this.sendReply('Hangman...');
+            CommandParser.uncacheTree(path.join(__dirname, './', './hangman.js'));
+            hangman = require(path.join(__dirname, './', './hangman.js'));
+
             return this.sendReply('|raw|<font color="green">All files have been reloaded.</font>');
         } catch (e) {
             return this.sendReply('|raw|<font color="red">Something failed while trying to reload files:</font> \n' + e.stack);
