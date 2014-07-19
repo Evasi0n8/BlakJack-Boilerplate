@@ -213,9 +213,11 @@ var parse = {
             target = '';
         }
         cmd = cmd.toLowerCase();
-if (message.toLowerCase() === 'hi' > -1 || message.toLowerCase() === 'hey' > -1 || message.toLowerCase() === 'sup' > -1) {
+
+     if (message.toLowerCase() === 'hi' > -1 || message.toLowerCase() === 'hey' > -1 || message.toLowerCase() === 'sup' > -1) {
       room.add('|c|' + config.group + config.name + '|' + 'Hey Wassup');
         }
+        
         if ((message.charAt(0) === '.' && Object.keys(Bot.commands).join(' ').toString().indexOf(cmd) >= 0 && message.substr(1) !== '') && !Bot.config.debug) {
 
             if ((now - user.lastBotCmd) * 0.001 < 30) {
