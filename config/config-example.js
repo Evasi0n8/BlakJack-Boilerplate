@@ -1,5 +1,5 @@
 // The server port - the port to run Pokemon Showdown under
-exports.port = 8000;
+exports.port = 17000;
 
 // The server id - the id specified in the server registration.
 //   This should be set properly especially when there are more than one
@@ -283,7 +283,8 @@ exports.groups = {
 			ip: true,
 			modchat: true,
 			roompromote: '+ ',
-			scavengers: true
+			scavengers: true,
+			tournamentsmoderation: true
 		},
 		'%': {
 			id: 'driver',
@@ -309,7 +310,8 @@ exports.groups = {
 			description: "They can use ! commands like !groups, and talk during moderated chat",
 			inherit: ' ',
 			broadcast: true,
-			joinbattle: true
+			joinbattle: true,
+			tournaments: true
 		},
 		' ': {
 			alts: 's',
