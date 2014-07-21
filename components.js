@@ -205,6 +205,47 @@ user.updateIdentity();
         });
         req.end();
     },
+    
+    badges: 'badge',
+        badge: function(target, room, user) {
+                if (!this.canBroadcast()) return;
+                if (target == '') target = user.userid;
+                target = target.toLowerCase();
+                target = target.trim();
+                var matched = false; 
+                var admin = '<img src="http://www.smogon.com/media/forums/images/badges/sop.png" title="Server Administrator">';
+                var dev = '<img src="http://i.imgur.com/oyv3aga.png" title="is a Lore Developer">';
+                var creator = '<img src="http://www.smogon.com/media/forums/images/badges/dragon.png" title="Server Creator">';
+                var frequenter = '<img src="http://i.imgur.com/EghmFiY.png" title="is a Frequenter">';
+                var leader = '<img src="http://www.smogon.com/media/forums/images/badges/aop.png" title="Server Leader">';
+                var mod = '<img src="http://i.imgur.com/lfPYzFG.png" title="is a Server Host">';
+                var league ='<img src="http://www.smogon.com/media/forums/images/badges/forumsmod.png" title="Successful League Owner">';
+                var champ ='<img src="http://www.smogon.com/media/forums/images/badges/forumadmin_alum.png" title="Evad3rs Champion">';
+                var artist ='<img src="http://www.smogon.com/media/forums/images/badges/ladybug.png" title="Artist">';
+                var twinner='<img src="http://i.imgur.com/yPAXWE9.png" title="is a Tournament Winner">';
+                var vip ='<img src="http://www.smogon.com/media/forums/images/badges/zeph.png" title="VIP">';
+                var recruter = '<img src="http://i.imgur.com/oeKdHgW.png" title="is a Recruiter">';
+                //Shaymin, try to do 4 spaces between each badge if you could.
+                if (target === 'list' || target === 'help') {
+                        matched = true;
+                  this.sendReplyBox('<b>List of Lore Badges</b>:<br>   '+admin+'    '+dev+'  '+creator+'   '+frequenter+'    '+mod+'    '+leader+'    '+league+'    '+champ+'    '+artist+'    '+twinner+'    '+vip+' <br>--Hover over them to see the meaning of each');
+                }
+                if (target === 'evasi0n') {
+                        matched = true;
+                        this.sendReplyBox('<b>Evasi0n</b>:   '+admin+'  '+dev+'  '+creator+'   '+frequenter+'    '+artist+'    '+vip+'');
+                }
+                
+                 if (target === 'bandi') {
+                        matched = true;
+                        this.sendReplyBox('<b>Bandi</b>:   '+admin+'  '+dev+'  '+creator+'   '+frequenter+'    '+artist+'    '+vip+'');
+                }
+                
+                
+              	if (!matched) {
+                        this.sendReplyBox('<b>'+target+'</b>: - does not have any badges.');
+                }
+                
+        },
 
     atm: 'profile',
     profile: function (target, room, user, connection, cmd) {
