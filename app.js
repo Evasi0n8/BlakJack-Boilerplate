@@ -473,3 +473,5 @@ global.casino = require('./casino.js');
 global.trainerCards = require('./trainer-cards.js');
 
 global.hangman = require('./hangman.js').hangman();
+
+global.economy = require('./economy.js');
