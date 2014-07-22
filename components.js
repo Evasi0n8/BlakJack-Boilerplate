@@ -11,110 +11,107 @@
  *
  * @license MIT license
  */
-
 var fs = require("fs");
-    path = require("path"),
+path = require("path"),
     http = require("http"),
     request = require('request');
 
 var components = exports.components = {
 
-   eating: 'away',
-       gaming: 'away',
-       sleep: 'away',
-       work: 'away',
-       working: 'away',
-       sleeping: 'away',
-       busy: 'away',
-       afk: 'away',
-       away: function(target, room, user, connection, cmd) {
-            // unicode away message idea by Siiilver
-            var t = 'Ⓐⓦⓐⓨ';
-            var t2 = 'Away';
-            switch (cmd) {
-           case 'busy':
-t = 'Ⓑⓤⓢⓨ';
-t2 = 'Busy';
-break;
-case 'sleeping':
-t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
-t2 = 'Sleeping';
-break;
-case 'sleep':
-t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
-t2 = 'Sleeping';
-break;
-case 'gaming':
-t = 'Ⓖⓐⓜⓘⓝⓖ';
-t2 = 'Gaming';
-break;
-case 'working':
-t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
-t2 = 'Working';
-break;
-case 'work':
-t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
-t2 = 'Working';
-break;
-case 'eating':
-t = 'Ⓔⓐⓣⓘⓝⓖ';
-t2 = 'Eating';
-break;
-default:
-t = 'Ⓐⓦⓐⓨ'
-t2 = 'Away';
-break;
-}
+    eating: 'away',
+    gaming: 'away',
+    sleep: 'away',
+    work: 'away',
+    working: 'away',
+    sleeping: 'away',
+    busy: 'away',
+    afk: 'away',
+    away: function (target, room, user, connection, cmd) {
+        // unicode away message idea by Siiilver
+        var t = 'Ⓐⓦⓐⓨ';
+        var t2 = 'Away';
+        switch (cmd) {
+        case 'busy':
+            t = 'Ⓑⓤⓢⓨ';
+            t2 = 'Busy';
+            break;
+        case 'sleeping':
+            t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
+            t2 = 'Sleeping';
+            break;
+        case 'sleep':
+            t = 'Ⓢⓛⓔⓔⓟⓘⓝⓖ';
+            t2 = 'Sleeping';
+            break;
+        case 'gaming':
+            t = 'Ⓖⓐⓜⓘⓝⓖ';
+            t2 = 'Gaming';
+            break;
+        case 'working':
+            t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
+            t2 = 'Working';
+            break;
+        case 'work':
+            t = 'Ⓦⓞⓡⓚⓘⓝⓖ';
+            t2 = 'Working';
+            break;
+        case 'eating':
+            t = 'Ⓔⓐⓣⓘⓝⓖ';
+            t2 = 'Eating';
+            break;
+        default:
+            t = 'Ⓐⓦⓐⓨ'
+            t2 = 'Away';
+            break;
+        }
 
-if (user.name.length > 18) return this.sendReply('Your username exceeds the length limit.');
+        if (user.name.length > 18) return this.sendReply('Your username exceeds the length limit.');
 
-if (!user.isAway) {
-user.originalName = user.name;
-var awayName = user.name + ' - '+t;
-//delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
-delete Users.get(awayName);
-user.forceRename(awayName, undefined, true);
+        if (!user.isAway) {
+            user.originalName = user.name;
+            var awayName = user.name + ' - ' + t;
+            //delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
+            delete Users.get(awayName);
+            user.forceRename(awayName, undefined, true);
 
-if (user.can('lock')) this.add('|raw|-- <b><font color="#088cc7">' + user.originalName +'</font color></b> is now '+t2.toLowerCase()+'. '+ (target ? " (" + escapeHTML(target) + ")" : ""));
+            if (user.can('lock')) this.add('|raw|-- <b><font color="#088cc7">' + user.originalName + '</font color></b> is now ' + t2.toLowerCase() + '. ' + (target ? " (" + escapeHTML(target) + ")" : ""));
 
-user.isAway = true;
-}
-else {
-return this.sendReply('You are already set as a form of away, type /back if you are now back.');
-}
+            user.isAway = true;
+        } else {
+            return this.sendReply('You are already set as a form of away, type /back if you are now back.');
+        }
 
-user.updateIdentity();
-},
+        user.updateIdentity();
+    },
 
-back: function(target, room, user, connection) {
+    back: function (target, room, user, connection) {
 
-if (user.isAway) {
-if (user.name === user.originalName) {
-user.isAway = false;
-return this.sendReply('Your name has been left unaltered and no longer marked as away.');
-}
+        if (user.isAway) {
+            if (user.name === user.originalName) {
+                user.isAway = false;
+                return this.sendReply('Your name has been left unaltered and no longer marked as away.');
+            }
 
-var newName = user.originalName;
+            var newName = user.originalName;
 
-//delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
-delete Users.get(newName);
+            //delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
+            delete Users.get(newName);
 
-user.forceRename(newName, undefined, true);
+            user.forceRename(newName, undefined, true);
 
-//user will be authenticated
-user.authenticated = true;
+            //user will be authenticated
+            user.authenticated = true;
 
-if (user.can('lock')) this.add('|raw|-- <b><font color="#088cc7">' + newName + '</font color></b> is no longer away.');
+            if (user.can('lock')) this.add('|raw|-- <b><font color="#088cc7">' + newName + '</font color></b> is no longer away.');
 
-user.originalName = '';
-user.isAway = false;
-}
-else {
-return this.sendReply('You are not set as away.');
-}
+            user.originalName = '';
+            user.isAway = false;
+        } else {
+            return this.sendReply('You are not set as away.');
+        }
 
-user.updateIdentity();
-},
+        user.updateIdentity();
+    },
     earnbuck: 'earnmoney',
     earnbucks: 'earnmoney',
     earnmoney: function (target, room, user) {
@@ -165,74 +162,79 @@ user.updateIdentity();
         this.popupReply('Administrators:\n--------------------\n' + buffer.admins + '\n\nLeaders:\n-------------------- \n' + buffer.leaders + '\n\nModerators:\n-------------------- \n' + buffer.mods + '\n\nDrivers:\n--------------------\n' + buffer.drivers + '\n\nVoices:\n-------------------- \n' + buffer.voices + '\n\n\t\t\t\tTotal Staff Members: ' + numStaff);
     },
 
-roomauth: function(target, room, user, connection) {
-		if (!room.auth) return this.sendReply("/roomauth - This room isn't designed for per-room moderation and therefore has no auth list.");
-		var buffer = [];
-		var owners = [];
-		var admins = [];
-		var leaders = [];
-		var mods = [];
-		var drivers = [];
-		var voices = [];
+    roomauth: function (target, room, user, connection) {
+        if (!room.auth) return this.sendReply("/roomauth - This room isn't designed for per-room moderation and therefore has no auth list.");
+        var buffer = [];
+        var owners = [];
+        var admins = [];
+        var leaders = [];
+        var mods = [];
+        var drivers = [];
+        var voices = [];
 
-		room.owners = ''; room.admins = ''; room.leaders = ''; room.mods = ''; room.drivers = ''; room.voices = ''; 
-		for (var u in room.auth) { 
-			if (room.auth[u] == '#') { 
-				room.owners = room.owners +u+',';
-			} 
-			if (room.auth[u] == '~') { 
-				room.admins = room.admins +u+',';
-			} 
-			if (room.auth[u] == '&') { 
-				room.leaders = room.leaders +u+',';
-			}
-			if (room.auth[u] == '@') { 
-				room.mods = room.mods +u+',';
-			} 
-			if (room.auth[u] == '%') { 
-				room.drivers = room.drivers +u+',';
-			} 
-			if (room.auth[u] == '+') { 
-				room.voices = room.voices +u+',';
-			} 
-		}
+        room.owners = '';
+        room.admins = '';
+        room.leaders = '';
+        room.mods = '';
+        room.drivers = '';
+        room.voices = '';
+        for (var u in room.auth) {
+            if (room.auth[u] == '#') {
+                room.owners = room.owners + u + ',';
+            }
+            if (room.auth[u] == '~') {
+                room.admins = room.admins + u + ',';
+            }
+            if (room.auth[u] == '&') {
+                room.leaders = room.leaders + u + ',';
+            }
+            if (room.auth[u] == '@') {
+                room.mods = room.mods + u + ',';
+            }
+            if (room.auth[u] == '%') {
+                room.drivers = room.drivers + u + ',';
+            }
+            if (room.auth[u] == '+') {
+                room.voices = room.voices + u + ',';
+            }
+        }
 
-		if (!room.founder) founder = '';
-		if (room.founder) founder = room.founder;
+        if (!room.founder) founder = '';
+        if (room.founder) founder = room.founder;
 
-		room.owners = room.owners.split(',');
-		room.mods = room.mods.split(',');
-		room.drivers = room.drivers.split(',');
-		room.voices = room.voices.split(',');
+        room.owners = room.owners.split(',');
+        room.mods = room.mods.split(',');
+        room.drivers = room.drivers.split(',');
+        room.voices = room.voices.split(',');
 
-		for (var u in room.owners) {
-			if (room.owners[u] != '') owners.push(room.owners[u]);
-		}
-		for (var u in room.mods) {
-			if (room.mods[u] != '') mods.push(room.mods[u]);
-		}
-		for (var u in room.drivers) {
-			if (room.drivers[u] != '') drivers.push(room.drivers[u]);
-		}
-		for (var u in room.voices) {
-			if (room.voices[u] != '') voices.push(room.voices[u]);
-		}
-		if (owners.length > 0) {
-			owners = owners.join(', ');
-		} 
-		if (mods.length > 0) {
-			mods = mods.join(', ');
-		}
-		if (drivers.length > 0) {
-			drivers = drivers.join(', ');
-		}
-		if (voices.length > 0) {
-			voices = voices.join(', ');
-		}
-		connection.popup('Room Auth in "'+room.id+'"\n\n**Founder**: \n'+founder+'\n**Owner(s)**: \n'+owners+'\n**Moderator(s)**: \n'+mods+'\n**Driver(s)**: \n'+drivers+'\n**Voice(s)**: \n'+voices);
-	},
+        for (var u in room.owners) {
+            if (room.owners[u] != '') owners.push(room.owners[u]);
+        }
+        for (var u in room.mods) {
+            if (room.mods[u] != '') mods.push(room.mods[u]);
+        }
+        for (var u in room.drivers) {
+            if (room.drivers[u] != '') drivers.push(room.drivers[u]);
+        }
+        for (var u in room.voices) {
+            if (room.voices[u] != '') voices.push(room.voices[u]);
+        }
+        if (owners.length > 0) {
+            owners = owners.join(', ');
+        }
+        if (mods.length > 0) {
+            mods = mods.join(', ');
+        }
+        if (drivers.length > 0) {
+            drivers = drivers.join(', ');
+        }
+        if (voices.length > 0) {
+            voices = voices.join(', ');
+        }
+        connection.popup('Room Auth in "' + room.id + '"\n\n**Founder**: \n' + founder + '\n**Owner(s)**: \n' + owners + '\n**Moderator(s)**: \n' + mods + '\n**Driver(s)**: \n' + drivers + '\n**Voice(s)**: \n' + voices);
+    },
 
- regdate: function (target, room, user, connection) {
+    regdate: function (target, room, user, connection) {
         if (!this.canBroadcast()) return;
         if (!target || target == "." || target == "," || target == "'") return this.parse('/help regdate');
         var username = target;
@@ -272,47 +274,47 @@ roomauth: function(target, room, user, connection) {
         });
         req.end();
     },
-    
+
     badges: 'badge',
-        badge: function(target, room, user) {
-                if (!this.canBroadcast()) return;
-                if (target == '') target = user.userid;
-                target = target.toLowerCase();
-                target = target.trim();
-                var matched = false; 
-                var admin = '<img src="http://www.smogon.com/media/forums/images/badges/sop.png" title="Server Administrator">';
-                var dev = '<img src="http://i.imgur.com/oyv3aga.png" title="is a Lore Developer">';
-                var creator = '<img src="http://www.smogon.com/media/forums/images/badges/dragon.png" title="Server Creator">';
-                var frequenter = '<img src="http://i.imgur.com/EghmFiY.png" title="is a Frequenter">';
-                var leader = '<img src="http://www.smogon.com/media/forums/images/badges/aop.png" title="Server Leader">';
-                var mod = '<img src="http://i.imgur.com/lfPYzFG.png" title="is a Server Host">';
-                var league ='<img src="http://www.smogon.com/media/forums/images/badges/forumsmod.png" title="Successful League Owner">';
-                var champ ='<img src="http://www.smogon.com/media/forums/images/badges/forumadmin_alum.png" title="Evad3rs Champion">';
-                var artist ='<img src="http://www.smogon.com/media/forums/images/badges/ladybug.png" title="Artist">';
-                var twinner='<img src="http://i.imgur.com/yPAXWE9.png" title="is a Tournament Winner">';
-                var vip ='<img src="http://www.smogon.com/media/forums/images/badges/zeph.png" title="VIP">';
-                var recruter = '<img src="http://i.imgur.com/oeKdHgW.png" title="is a Recruiter">';
-                //Shaymin, try to do 4 spaces between each badge if you could.
-                if (target === 'list' || target === 'help') {
-                        matched = true;
-                  this.sendReplyBox('<b>List of Lore Badges</b>:<br>   '+admin+'    '+dev+'  '+creator+'   '+frequenter+'    '+mod+'    '+leader+'    '+league+'    '+champ+'    '+artist+'    '+twinner+'    '+vip+' <br>--Hover over them to see the meaning of each');
-                }
-                if (target === 'evasi0n') {
-                        matched = true;
-                        this.sendReplyBox('<b>Evasi0n</b>:   '+admin+'  '+dev+'  '+creator+'   '+frequenter+'    '+artist+'    '+vip+'');
-                }
-                
-                 if (target === 'bandi') {
-                        matched = true;
-                        this.sendReplyBox('<b>Bandi</b>:   '+admin+'  '+dev+'  '+creator+'   '+frequenter+'    '+artist+'    '+vip+'');
-                }
-                
-                
-              	if (!matched) {
-                        this.sendReplyBox('<b>'+target+'</b>: - does not have any badges.');
-                }
-                
-        },
+    badge: function (target, room, user) {
+        if (!this.canBroadcast()) return;
+        if (target == '') target = user.userid;
+        target = target.toLowerCase();
+        target = target.trim();
+        var matched = false;
+        var admin = '<img src="http://www.smogon.com/media/forums/images/badges/sop.png" title="Server Administrator">';
+        var dev = '<img src="http://i.imgur.com/oyv3aga.png" title="is a Lore Developer">';
+        var creator = '<img src="http://www.smogon.com/media/forums/images/badges/dragon.png" title="Server Creator">';
+        var frequenter = '<img src="http://i.imgur.com/EghmFiY.png" title="is a Frequenter">';
+        var leader = '<img src="http://www.smogon.com/media/forums/images/badges/aop.png" title="Server Leader">';
+        var mod = '<img src="http://i.imgur.com/lfPYzFG.png" title="is a Server Host">';
+        var league = '<img src="http://www.smogon.com/media/forums/images/badges/forumsmod.png" title="Successful League Owner">';
+        var champ = '<img src="http://www.smogon.com/media/forums/images/badges/forumadmin_alum.png" title="Evad3rs Champion">';
+        var artist = '<img src="http://www.smogon.com/media/forums/images/badges/ladybug.png" title="Artist">';
+        var twinner = '<img src="http://i.imgur.com/yPAXWE9.png" title="is a Tournament Winner">';
+        var vip = '<img src="http://www.smogon.com/media/forums/images/badges/zeph.png" title="VIP">';
+        var recruter = '<img src="http://i.imgur.com/oeKdHgW.png" title="is a Recruiter">';
+        //Shaymin, try to do 4 spaces between each badge if you could.
+        if (target === 'list' || target === 'help') {
+            matched = true;
+            this.sendReplyBox('<b>List of Lore Badges</b>:<br>   ' + admin + '    ' + dev + '  ' + creator + '   ' + frequenter + '    ' + mod + '    ' + leader + '    ' + league + '    ' + champ + '    ' + artist + '    ' + twinner + '    ' + vip + ' <br>--Hover over them to see the meaning of each');
+        }
+        if (target === 'evasi0n') {
+            matched = true;
+            this.sendReplyBox('<b>Evasi0n</b>:   ' + admin + '  ' + dev + '  ' + creator + '   ' + frequenter + '    ' + artist + '    ' + vip + '');
+        }
+
+        if (target === 'bandi') {
+            matched = true;
+            this.sendReplyBox('<b>Bandi</b>:   ' + admin + '  ' + dev + '  ' + creator + '   ' + frequenter + '    ' + artist + '    ' + vip + '');
+        }
+
+
+        if (!matched) {
+            this.sendReplyBox('<b>' + target + '</b>: - does not have any badges.');
+        }
+
+    },
 
     atm: 'profile',
     profile: function (target, room, user, connection, cmd) {
@@ -398,10 +400,58 @@ roomauth: function(target, room, user, connection) {
 
     shop: function (target, room, user) {
         if (!this.canBroadcast()) return;
-        return this.sendReply('|raw|' + Core.shop(true));
+        return this.sendReply('|raw|' + economy.shop(true));
     },
 
-    buy: function (target, room, user) {
+    startdice: function (target, room, user) {
+        if (!this.can('broadcast')) return;
+
+        if (isNaN(target) || !target || target === 0) return this.sendReply('Please use a real number fren.');
+
+        if (economy.dice[room.id]) return this.sendReply('There is already a dice game in this room fren.');
+
+        var target = parseInt(target);
+
+        if (user.money < target) return this.sendReply('You cannot bet more than you have fren.');
+
+        var b = 'bucks';
+
+        if (target === 1) b = 'buck';
+
+        economy.dice[room.id] = {
+            bet: target,
+            players: [],
+            rolls: {},
+        }
+
+        this.add('|raw|<div class="infobox"><h2><center><font color=#24678d>' + user.name + ' has started a dice game for </font><font color=red>' + economy.dice[room.id].bet + ' </font><font color=#24678d>' + b + '.</font><br /> <button name="send" value="/joindice">Click to join.</button></center></h2></div> ');
+
+    },
+
+    joindice: function (target, room, user) {
+        if (!economy.dice[room.id]) return this.sendReply('There is no dice game in this room fren.');
+        if (user.money < economy.dice[room.id].bet || isNaN(Number(user.money))) return this.sendReply('You cannot bet more than you have fren.');
+        if (economy.dice[room.id].players.indexOf(user.userid) > -1) {
+            this.sendReply('You\'re already in this game fren.');
+            return false;
+        }
+        room.addRaw('<b>' + user.name + ' has joined the game of dice.</b>');
+        economy.dice[room.id].players.push(user.userid);
+        if (economy.dice[room.id].players.length === 2) {
+            room.addRaw('<b>The dice game has started!</b>');
+            economy.dice.generateRolls(economy.dice[room.id].players, room);
+            economy.dice.compareRolls(economy.dice[room.id].rolls, economy.dice[room.id].players, room);
+        }
+    },
+
+    enddice: function (target, room, user) {
+        if (!this.can('broadcast')) return;
+        if (!economy.dice[room.id]) return this.sendReply('There is no dice game, why don\'t you start one with /startdice.');
+        room.addRaw('<b>' + user.name + ' has ended the dice game</b>');
+        delete economy.dice[room.id];
+    }
+
+        buy: function (target, room, user) {
         if (!target) this.parse('/help buy');
         var userMoney = Number(Core.stdin('money', user.userid));
         var shop = Core.shop(false);
@@ -484,7 +534,7 @@ roomauth: function(target, room, user, connection) {
     },
 
     viewtells: 'showtells',
-    showtells: function (target, room, user){
+    showtells: function (target, room, user) {
         return this.sendReply("These users have currently have queued tells: " + Object.keys(tells));
     },
 
@@ -602,27 +652,27 @@ roomauth: function(target, room, user, connection) {
         user.updateIdentity();
         this.sendReply('Your symbol has been reset.');
     },
-    join: function(target, room, user, connection) {
-		if (!target) return false;
-		var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
-		if (!targetRoom) {
-			return connection.sendTo(target, "|noinit|nonexistent|The room '" + target + "' does not exist.");
-		}
-		if (targetRoom.isPrivate && !user.named) {
-			return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '" + target + "'.");
-		}
-		if (!user.joinRoom(targetRoom || room, connection)) {
-			return connection.sendTo(target, "|noinit|joinfailed|The room '" + target + "' could not be joined.");
-		}
-		if (target.toLowerCase() == "lobby") {
- 			return connection.sendTo('lobby','|html|<div class="infobox" style="border-color:blue"><center><b><u>Welcome to the KTN Server!' +
- 			'</u></b></center><br/><center><a href ="https://gist.github.com/E4Arsh/8577715"><b>This Server is hosted By BlakJack</b></a></center><br/><br/> ' +
- 			'&nbsp;&nbsp;&nbsp;Battle users in the ladder or in tournaments, learn how to play Pokemon or just chat in lobby! ' +
- 			'Make sure to type <b>/serverhelp</b> or <b>/help</b> to get a list of commands that you can use and <b>/faq</b> to check out frequently asked questions. ' +
- 			'<br/><br/>&nbsp;&nbsp;&nbsp;If you have any questions, issues or concerns should be directed at someone with a rank such as Voice (+), Driver (%), Moderator (@) and Leader (&). ' +
- 			'Only serious issues or questions should be directed to Administrators (~).</div>');
- 		}
-	},
+    join: function (target, room, user, connection) {
+        if (!target) return false;
+        var targetRoom = Rooms.get(target) || Rooms.get(toId(target));
+        if (!targetRoom) {
+            return connection.sendTo(target, "|noinit|nonexistent|The room '" + target + "' does not exist.");
+        }
+        if (targetRoom.isPrivate && !user.named) {
+            return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '" + target + "'.");
+        }
+        if (!user.joinRoom(targetRoom || room, connection)) {
+            return connection.sendTo(target, "|noinit|joinfailed|The room '" + target + "' could not be joined.");
+        }
+        if (target.toLowerCase() == "lobby") {
+            return connection.sendTo('lobby', '|html|<div class="infobox" style="border-color:blue"><center><b><u>Welcome to the KTN Server!' +
+                '</u></b></center><br/><center><a href ="https://gist.github.com/E4Arsh/8577715"><b>This Server is hosted By BlakJack</b></a></center><br/><br/> ' +
+                '&nbsp;&nbsp;&nbsp;Battle users in the ladder or in tournaments, learn how to play Pokemon or just chat in lobby! ' +
+                'Make sure to type <b>/serverhelp</b> or <b>/help</b> to get a list of commands that you can use and <b>/faq</b> to check out frequently asked questions. ' +
+                '<br/><br/>&nbsp;&nbsp;&nbsp;If you have any questions, issues or concerns should be directed at someone with a rank such as Voice (+), Driver (%), Moderator (@) and Leader (&). ' +
+                'Only serious issues or questions should be directed to Administrators (~).</div>');
+        }
+    },
 
     emoticons: 'emoticon',
     emoticon: function (target, room, user) {
@@ -631,7 +681,7 @@ roomauth: function(target, room, user, connection) {
             emoticons = [];
         var len = name.length;
         while (len--) {
-            emoticons.push((Core.processEmoticons(name[(name.length-1)-len]) + '&nbsp;' + name[(name.length-1)-len]));
+            emoticons.push((Core.processEmoticons(name[(name.length - 1) - len]) + '&nbsp;' + name[(name.length - 1) - len]));
         }
         this.sendReplyBox('<b><u>List of emoticons:</b></u> <br/><br/>' + emoticons.join(' ').toString());
     },
@@ -712,23 +762,23 @@ roomauth: function(target, room, user, connection) {
         request(options, callback);
     },
 
-hex: function (target, room, user) {
-		if (!this.canBroadcast()) return;
-		if(!target){
-			this.sendReplyBox('<center><b>Your name\'s hexcode is:<font color="'+hashColor(''+toId(user.name)+'')+'"> '+hashColor(''+toId(user.name)+''));
-			return;
-		}
-		if(target.indexOf('#') < 0){
-			this.sendReplyBox('Please include the \'#\' symbol');
-			return false;
-		}
-		var verify = /^#[0-9A-F]{6}$/i;
-		if(verify.test(target)){
-			this.sendReplyBox('<center><b><font size="5" color="' + target + '">' + target + '</font></b></center>');
-		}else{
-			this.sendReplyBox('Could not find a valid color to match your hex code');
-		}
-	},
+    hex: function (target, room, user) {
+        if (!this.canBroadcast()) return;
+        if (!target) {
+            this.sendReplyBox('<center><b>Your name\'s hexcode is:<font color="' + hashColor('' + toId(user.name) + '') + '"> ' + hashColor('' + toId(user.name) + ''));
+            return;
+        }
+        if (target.indexOf('#') < 0) {
+            this.sendReplyBox('Please include the \'#\' symbol');
+            return false;
+        }
+        var verify = /^#[0-9A-F]{6}$/i;
+        if (verify.test(target)) {
+            this.sendReplyBox('<center><b><font size="5" color="' + target + '">' + target + '</font></b></center>');
+        } else {
+            this.sendReplyBox('Could not find a valid color to match your hex code');
+        }
+    },
 
     /*********************************************************
      * Staff commands
@@ -863,7 +913,7 @@ hex: function (target, room, user) {
     },
 
     rmall: function (target, room, user) {
-        if(!this.can('declare')) return;
+        if (!this.can('declare')) return;
         if (!target) return this.parse('/help rmall');
 
         var pmName = '~Lore Server [Do not reply]';
@@ -873,48 +923,48 @@ hex: function (target, room, user) {
             room.users[i].send(message);
         }
     },
-    
-    model: 'sprite',
-sprite: function(target, room, user) {
-        if (!this.canBroadcast()) return;
-		var targets = target.split(',');
-			target = targets[0];
-				target1 = targets[1];
-if (target.toLowerCase().indexOf(' ') !== -1) {
-target.toLowerCase().replace(/ /g,'-');
-}
-        if (target.toLowerCase().length < 4) {
-        return this.sendReply('Model not found.');
-        }
-		var numbers = ['1','2','3','4','5','6','7','8','9','0'];
-		for (var i = 0; i < numbers.length; i++) {
-		if (target.toLowerCase().indexOf(numbers) == -1 && target.toLowerCase() !== 'porygon2' && !target1) {
-        
-        
 
-		if (target && !target1) {
-        return this.sendReply('|html|<img src = "http://www.pkparaiso.com/imagenes/xy/sprites/animados/'+target.toLowerCase().trim().replace(/ /g,'-')+'.gif">');
+    model: 'sprite',
+    sprite: function (target, room, user) {
+        if (!this.canBroadcast()) return;
+        var targets = target.split(',');
+        target = targets[0];
+        target1 = targets[1];
+        if (target.toLowerCase().indexOf(' ') !== -1) {
+            target.toLowerCase().replace(/ /g, '-');
         }
-	if (toId(target1) == 'back' || toId(target1) == 'shiny' || toId(target1) == 'front') {
-		if (target && toId(target1) == 'back') {
-        return this.sendReply('|html|<img src = "http://play.pokemonshowdown.com/sprites/xyani-back/'+target.toLowerCase().trim().replace(/ /g,'-')+'.gif">');
-		}
-		if (target && toId(target1) == 'shiny') {
-        return this.sendReply('|html|<img src = "http://play.pokemonshowdown.com/sprites/xyani-shiny/'+target.toLowerCase().trim().replace(/ /g,'-')+'.gif">');
-		}
-		if (target && toId(target1) == 'front') {
-        return this.sendReply('|html|<img src = "http://www.pkparaiso.com/imagenes/xy/sprites/animados/'+target.toLowerCase().trim().replace(/ /g,'-')+'.gif">');
-	}
-	}
-	} else {
-	return this.sendReply('Model not found.');
-	}
-	}
-	},
+        if (target.toLowerCase().length < 4) {
+            return this.sendReply('Model not found.');
+        }
+        var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+        for (var i = 0; i < numbers.length; i++) {
+            if (target.toLowerCase().indexOf(numbers) == -1 && target.toLowerCase() !== 'porygon2' && !target1) {
+
+
+
+                if (target && !target1) {
+                    return this.sendReply('|html|<img src = "http://www.pkparaiso.com/imagenes/xy/sprites/animados/' + target.toLowerCase().trim().replace(/ /g, '-') + '.gif">');
+                }
+                if (toId(target1) == 'back' || toId(target1) == 'shiny' || toId(target1) == 'front') {
+                    if (target && toId(target1) == 'back') {
+                        return this.sendReply('|html|<img src = "http://play.pokemonshowdown.com/sprites/xyani-back/' + target.toLowerCase().trim().replace(/ /g, '-') + '.gif">');
+                    }
+                    if (target && toId(target1) == 'shiny') {
+                        return this.sendReply('|html|<img src = "http://play.pokemonshowdown.com/sprites/xyani-shiny/' + target.toLowerCase().trim().replace(/ /g, '-') + '.gif">');
+                    }
+                    if (target && toId(target1) == 'front') {
+                        return this.sendReply('|html|<img src = "http://www.pkparaiso.com/imagenes/xy/sprites/animados/' + target.toLowerCase().trim().replace(/ /g, '-') + '.gif">');
+                    }
+                }
+            } else {
+                return this.sendReply('Model not found.');
+            }
+        }
+    },
 
 
     roomlist: function (target, room, user) {
-        if(!this.can('roomlist')) return;
+        if (!this.can('roomlist')) return;
 
         var rooms = Object.keys(Rooms.rooms),
             len = rooms.length,
@@ -990,7 +1040,9 @@ target.toLowerCase().replace(/ /g,'-');
 
     tierpoll: function (target, room, user) {
         if (!this.can('broadcast')) return;
-        this.parse('/poll Tournament tier?, ' + Object.keys(Tools.data.Formats).filter(function (f) { return Tools.data.Formats[f].effectType === 'Format'; }).join(", "));
+        this.parse('/poll Tournament tier?, ' + Object.keys(Tools.data.Formats).filter(function (f) {
+            return Tools.data.Formats[f].effectType === 'Format';
+        }).join(", "));
     },
 
     endpoll: function (target, room, user) {
@@ -1061,7 +1113,7 @@ target.toLowerCase().replace(/ /g,'-');
             Users.get(user).leaveRoom(room, Users.get(user).connections[0]);
         }
         len = users.length;
-        setTimeout(function() {
+        setTimeout(function () {
             while (len--) {
                 Users.get(users[len]).joinRoom(room, Users.get(users[len]).connections[0]);
             }
@@ -1124,11 +1176,11 @@ target.toLowerCase().replace(/ /g,'-');
             CommandParser.uncacheTree(path.join(__dirname, './', './tournaments/middleend.js'));
             Tournaments = require(path.join(__dirname, './', './tournaments/middleend.js'));
             Tournaments.tournaments = runningTournaments;
-            
+
             this.sendReply('Reloading Trainer Cards...');
             CommandParser.uncacheTree(path.join(__dirname, './', './trainer-cards.js'));
             trainerCards = require(path.join(__dirname, './', './trainer-cards.js'));
-            
+
             this.sendReply('Reloading casino...');
             CommandParser.uncacheTree(path.join(__dirname, './', 'casino.js'));
             dice = require(path.join(__dirname, './', 'casino.js'));
@@ -1172,10 +1224,10 @@ target.toLowerCase().replace(/ /g,'-');
                 '/cp color, [COLOR]<br/>' +
                 '/cp avatar, [AVATAR COLOR URL]<br/>' +
                 '/cp toursize, [TOURNAMENT SIZE TO EARN MONEY]<br/>' +
-                '/cp money, [STANDARD/DOUBLE/QUADRUPLE]<br/>' + 
+                '/cp money, [STANDARD/DOUBLE/QUADRUPLE]<br/>' +
                 '/cp winner, [WINNER ELO BONUS]<br/>' +
                 '/cp runnerup, [RUNNERUP ELO BONUS]<br/>'
-                );
+            );
         }
         var parts = target.split(',');
         Core.profile.color = Core.stdin('control-panel', 'color');
@@ -1197,7 +1249,7 @@ target.toLowerCase().replace(/ /g,'-');
                 'To edit this info, use /cp help' +
                 '</center>' +
                 '<br clear="all">'
-                );
+            );
         }
 
         parts[1] = parts[1].trim().toLowerCase()
@@ -1234,7 +1286,7 @@ target.toLowerCase().replace(/ /g,'-');
             };
 
         for (cmd in cmds) {
-            if (parts[0].toLowerCase() === cmd) match = true; 
+            if (parts[0].toLowerCase() === cmd) match = true;
         }
 
         if (!match) return this.parse('/cp help');
@@ -1260,7 +1312,7 @@ Object.merge(CommandParser.commands, components);
  */
 
 var fs = require("fs");
-    path = require("path"),
+path = require("path"),
     http = require("http"),
     request = require('request');
 
@@ -1670,7 +1722,7 @@ var components = exports.components = {
             emoticons = [];
         var len = name.length;
         while (len--) {
-            emoticons.push((Core.processEmoticons(name[(name.length-1)-len]) + '&nbsp;' + name[(name.length-1)-len]));
+            emoticons.push((Core.processEmoticons(name[(name.length - 1) - len]) + '&nbsp;' + name[(name.length - 1) - len]));
         }
         this.sendReplyBox('<b><u>List of emoticons:</b></u> <br/><br/>' + emoticons.join(' ').toString());
     },
@@ -1884,7 +1936,7 @@ var components = exports.components = {
     },
 
     rmall: function (target, room, user) {
-        if(!this.can('declare')) return;
+        if (!this.can('declare')) return;
         if (!target) return this.parse('/help rmall');
 
         var pmName = '~Server PM [Do not reply]';
@@ -1896,7 +1948,7 @@ var components = exports.components = {
     },
 
     roomlist: function (target, room, user) {
-        if(!this.can('roomlist')) return;
+        if (!this.can('roomlist')) return;
 
         var rooms = Object.keys(Rooms.rooms),
             len = rooms.length,
@@ -1972,7 +2024,9 @@ var components = exports.components = {
 
     tierpoll: function (target, room, user) {
         if (!this.can('broadcast')) return;
-        this.parse('/poll Tournament tier?, ' + Object.keys(Tools.data.Formats).filter(function (f) { return Tools.data.Formats[f].effectType === 'Format'; }).join(", "));
+        this.parse('/poll Tournament tier?, ' + Object.keys(Tools.data.Formats).filter(function (f) {
+            return Tools.data.Formats[f].effectType === 'Format';
+        }).join(", "));
     },
 
     endpoll: function (target, room, user) {
@@ -2043,7 +2097,7 @@ var components = exports.components = {
             Users.get(user).leaveRoom(room, Users.get(user).connections[0]);
         }
         len = users.length;
-        setTimeout(function() {
+        setTimeout(function () {
             while (len--) {
                 Users.get(users[len]).joinRoom(room, Users.get(users[len]).connections[0]);
             }
@@ -2057,26 +2111,28 @@ var components = exports.components = {
     customavatars: 'customavatar',
     customavatar: (function () {
         try {
-            const script = (function () {/*
-                FILENAME=`mktemp`
-                function cleanup {
-                    rm -f $FILENAME
-                }
-                trap cleanup EXIT
+            const script = (function () {
+                /*
+                                FILENAME=`mktemp`
+                                function cleanup {
+                                    rm -f $FILENAME
+                                }
+                                trap cleanup EXIT
 
-                set -xe
+                                set -xe
 
-                timeout 10 wget "$1" -nv -O $FILENAME
+                                timeout 10 wget "$1" -nv -O $FILENAME
 
-                FRAMES=`identify $FILENAME | wc -l`
-                if [ $FRAMES -gt 1 ]; then
-                    EXT=".gif"
-                else
-                    EXT=".png"
-                fi
+                                FRAMES=`identify $FILENAME | wc -l`
+                                if [ $FRAMES -gt 1 ]; then
+                                    EXT=".gif"
+                                else
+                                    EXT=".png"
+                                fi
 
-                timeout 10 convert $FILENAME -layers TrimBounds -coalesce -adaptive-resize 80x80\> -background transparent -gravity center -extent 80x80 "$2$EXT"
-            */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+                                timeout 10 convert $FILENAME -layers TrimBounds -coalesce -adaptive-resize 80x80\> -background transparent -gravity center -extent 80x80 "$2$EXT"
+                            */
+            }).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
         } catch (e) {}
 
         var pendingAdds = {};
@@ -2084,7 +2140,12 @@ var components = exports.components = {
             var parts = target.split(',');
             var cmd = parts[0].trim().toLowerCase();
 
-            if (cmd in {'': 1, show: 1, view: 1, display: 1}) {
+            if (cmd in {
+                '': 1,
+                show: 1,
+                view: 1,
+                display: 1
+            }) {
                 var message = '';
                 for (var a in Config.customAvatars)
                     message += "<strong>" + Tools.escapeHTML(a) + ":</strong> " + Tools.escapeHTML(Config.customAvatars[a]) + "<br />";
@@ -2103,7 +2164,10 @@ var components = exports.components = {
                 if (Config.customAvatars[userid]) return this.sendReply(userid + " already has a custom avatar.");
 
                 var hash = require('crypto').createHash('sha512').update(userid + '\u0000' + avatar).digest('hex').slice(0, 8);
-                pendingAdds[hash] = {userid: userid, avatar: avatar};
+                pendingAdds[hash] = {
+                    userid: userid,
+                    avatar: avatar
+                };
                 parts[1] = hash;
 
                 if (!user) {
@@ -2250,10 +2314,10 @@ var components = exports.components = {
                 '/cp color, [COLOR]<br/>' +
                 '/cp avatar, [AVATAR COLOR URL]<br/>' +
                 '/cp toursize, [TOURNAMENT SIZE TO EARN MONEY]<br/>' +
-                '/cp money, [STANDARD/DOUBLE/QUADRUPLE]<br/>' + 
+                '/cp money, [STANDARD/DOUBLE/QUADRUPLE]<br/>' +
                 '/cp winner, [WINNER ELO BONUS]<br/>' +
                 '/cp runnerup, [RUNNERUP ELO BONUS]<br/>'
-                );
+            );
         }
         var parts = target.split(',');
         Core.profile.color = Core.stdin('control-panel', 'color');
@@ -2275,7 +2339,7 @@ var components = exports.components = {
                 'To edit this info, use /cp help' +
                 '</center>' +
                 '<br clear="all">'
-                );
+            );
         }
 
         parts[1] = parts[1].trim().toLowerCase()
@@ -2312,7 +2376,7 @@ var components = exports.components = {
             };
 
         for (cmd in cmds) {
-            if (parts[0].toLowerCase() === cmd) match = true; 
+            if (parts[0].toLowerCase() === cmd) match = true;
         }
 
         if (!match) return this.parse('/cp help');
@@ -2320,22 +2384,22 @@ var components = exports.components = {
         cmds[parts[0].toLowerCase()]();
     },
     roomfounder: function (target, room, user) {
-		if (!room.chatRoomData) {
-			return this.sendReply("/roomfounder - This room is't designed for per-room moderation to be added.");
-		}
-		var target = this.splitTarget(target, true);
-		var targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '"+this.targetUsername+"' is not online.");
-		if (!this.can('makeroom')) return false;
-		if (!room.auth) room.auth = room.chatRoomData.auth = {};
-		var name = targetUser.name;
-		room.auth[targetUser.userid] = '#';
-		room.founder = targetUser.userid;
-		this.addModCommand(''+name+' was appointed to Room Founder by '+user.name+'.');
-		room.onUpdateIdentity(targetUser);
-		room.chatRoomData.founder = room.founder;
-		Rooms.global.writeChatRoomData();
-	},
+        if (!room.chatRoomData) {
+            return this.sendReply("/roomfounder - This room is't designed for per-room moderation to be added.");
+        }
+        var target = this.splitTarget(target, true);
+        var targetUser = this.targetUser;
+        if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
+        if (!this.can('makeroom')) return false;
+        if (!room.auth) room.auth = room.chatRoomData.auth = {};
+        var name = targetUser.name;
+        room.auth[targetUser.userid] = '#';
+        room.founder = targetUser.userid;
+        this.addModCommand('' + name + ' was appointed to Room Founder by ' + user.name + '.');
+        room.onUpdateIdentity(targetUser);
+        room.chatRoomData.founder = room.founder;
+        Rooms.global.writeChatRoomData();
+    },
 
 
 };
